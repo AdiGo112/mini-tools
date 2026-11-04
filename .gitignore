@@ -1,0 +1,6 @@
+# Build outputs
+*.exe
+*.o
+*.out
+bloom
+lb
