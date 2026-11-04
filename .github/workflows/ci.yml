@@ -1,0 +1,16 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and run tests
+        run: |
+          set -e
+          for t in bloom lb; do
+            g++ -std=c++17 -O2 -Wall -Werror "tests/test_$t.cpp" -o "test_$t"
+            "./test_$t"
+          done
+      - name: Build benchmark
+        run: g++ -std=c++17 -O2 -Wall -Werror "bench/skewed_load.cpp" -o skewed_load
